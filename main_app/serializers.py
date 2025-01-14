@@ -18,3 +18,9 @@ class FeedingSerializer(serializers.ModelSerializer):
     model = Feeding
     fields = '__all__'
     read_only_fields = ('cat',)
+
+class ToySerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Cat
+    fields = '__all__'
+

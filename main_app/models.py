@@ -1,5 +1,6 @@
 # Importing Django's models module
 from django.db import models
+from datetime import date
 
 # A tuple of 2-tuples
 MEALS = (
@@ -17,6 +18,10 @@ class Cat(models.Model):
 
     def __str__(self):
         return self.name
+    
+  # add this new method
+    def fed_for_today(self):
+      return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
 # Add new Feeding model below Cat model
 class Feeding(models.Model):
@@ -27,7 +32,7 @@ class Feeding(models.Model):
     choices=MEALS,
     # set the default value for meal to be 'B'
     default=MEALS[0][0]
-  )
+)
 
   # Create a cat_id FK
   cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
@@ -35,4 +40,8 @@ class Feeding(models.Model):
 def __str__(self):
     # Nice method for obtaining the friendly value of a Field.choice
     return f"{self.get_meal_display()} on {self.date}"
+
+# change the default sort
+class Meta:
+     ordering = ['-date']
 

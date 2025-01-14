@@ -2,9 +2,15 @@ from rest_framework import serializers
 from .models import Cat
 from .models import Feeding
 
+class ToySerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Cat
+    fields = '__all__'
+
 
 class CatSerializer(serializers.ModelSerializer):
     fed_for_today = serializers.SerializerMethodField() # add this line
+    toys = ToySerializer(many=True, read_only=True) # add this line
     class Meta:
         model = Cat
         fields = '__all__'
@@ -19,8 +25,4 @@ class FeedingSerializer(serializers.ModelSerializer):
     fields = '__all__'
     read_only_fields = ('cat',)
 
-class ToySerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Cat
-    fields = '__all__'
 

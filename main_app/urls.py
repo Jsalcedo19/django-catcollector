@@ -1,7 +1,7 @@
 from django.urls import path
 
 # import Home view from the views file
-from .views import Home, CatList, CatDetail, FeedingListCreate, FeedingDetail, ToyList, ToyDetail
+from .views import Home, CatList, CatDetail, FeedingListCreate, FeedingDetail, ToyList, ToyDetail, AddToyToCat, RemoveToyFromCat
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -12,6 +12,8 @@ urlpatterns = [
     path('cats/<int:cat_id>/feedings/<int:id>/', FeedingDetail.as_view(), name='feeding-detail'),
     path('toys/', ToyList.as_view(), name='toy-list'),
     path('toys/<int:id>/', ToyDetail.as_view(), name='toy-detail'),
+    path('cats/<int:cat_id>/add_toy/<int:toy_id>/', AddToyToCat.as_view(), name='add-toy-to-cat'),
+    path('cats/<int:cat_id>/remove_toy/<int:toy_id>/', RemoveToyFromCat.as_view(), name='remove-toy-from-cat'),
 
 ]
 
